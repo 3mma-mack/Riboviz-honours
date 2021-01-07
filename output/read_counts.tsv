@@ -1,0 +1,20 @@
+# Created by: RiboViz
+# Date: 2021-01-06 16:10:05.428783
+# Command-line tool: /home/emma/riboviz/riboviz/tools/count_reads.py
+# File: /home/emma/riboviz/riboviz/count_reads.py
+# Version: commit 3e3cd2f1a9f4843170304c596149bbeb8c4e9549 date 2021-01-06 09:46:48+00:00
+SampleName	Program	File	NumReads	Description
+WTnone	input	vignette/input/SRR1042855_s1mi.fastq.gz	963571	input
+WT3AT	input	vignette/input/SRR1042864_s1mi.fastq.gz	1374448	input
+WT3AT	cutadapt	vignette/tmp/WT3AT/trim.fq	1373362	Reads after removal of sequencing library adapters
+WT3AT	hisat2	vignette/tmp/WT3AT/nonrRNA.fq	486233	rRNA or other contaminating reads removed by alignment to rRNA index files
+WT3AT	hisat2	vignette/tmp/WT3AT/rRNA_map.sam	1373362	Reads with rRNA and other contaminating reads removed by alignment to rRNA index files
+WT3AT	hisat2	vignette/tmp/WT3AT/unaligned.fq	477792	Unaligned reads removed by alignment of remaining reads to ORFs index files
+WT3AT	hisat2	vignette/tmp/WT3AT/orf_map.sam	8698	Reads aligned to ORFs index files
+WT3AT	riboviz.tools.trim_5p_mismatch	vignette/tmp/WT3AT/orf_map_clean.sam	8698	Reads after trimming of 5' mismatches and removal of those with more than 2 mismatches
+WTnone	cutadapt	vignette/tmp/WTnone/trim.fq	952343	Reads after removal of sequencing library adapters
+WTnone	hisat2	vignette/tmp/WTnone/nonrRNA.fq	467194	rRNA or other contaminating reads removed by alignment to rRNA index files
+WTnone	hisat2	vignette/tmp/WTnone/rRNA_map.sam	952343	Reads with rRNA and other contaminating reads removed by alignment to rRNA index files
+WTnone	hisat2	vignette/tmp/WTnone/unaligned.fq	452996	Unaligned reads removed by alignment of remaining reads to ORFs index files
+WTnone	hisat2	vignette/tmp/WTnone/orf_map.sam	14516	Reads aligned to ORFs index files
+WTnone	riboviz.tools.trim_5p_mismatch	vignette/tmp/WTnone/orf_map_clean.sam	14516	Reads after trimming of 5' mismatches and removal of those with more than 2 mismatches
