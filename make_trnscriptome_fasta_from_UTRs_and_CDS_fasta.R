@@ -5,7 +5,7 @@
 # inputs 
 # S_pombe 5UTR fasta, CDS fasta, 3UTR fasta. 
 # these should have sequences for individual genes/exons, labelled with IDs
-# Downloaded from PomBase
+# Downloaded from PomBase: https://www.pombase.org/data/genome_sequence_and_features/feature_sequences/
 
 # Process 
 # check that sequences are labelled with IDs
@@ -73,6 +73,9 @@ CreateFastaFullUTRs <- function(three_UTR, CDS, five_UTR)
   print('all lengths okay')
 }
 
-# export fasta files with 3UTR, CDS and 5UTR sequences.  
+# run the function.
 
+CreateFastaFullUTRs(three_UTR, CDS, five_UTR)
+
+# export fasta files with 3UTR, CDS and 5UTR sequences.  
 writeXStringSet(fiveutr_CDS_threeutr,filepath = file.path('.','S_pombe_full_UTR.fasta'),format = "fasta")
