@@ -36,6 +36,7 @@ names(genome) <- c("chr_II_telomeric_gap dd","CHR I Spombe"," CHR II Spombe"," C
 names(genome) <- c("chr_II_telomeric_gap dd","CHR 1 Spombe"," CHR 2 Spombe"," CHR III Spombe","zz mating_type_region","s mitochondrial")
 
 # find the chromosome labels used in the gff file and extract those strings from the names of the genome
+# The list new.names is made based on the order the names appear in the names(genome), not in the gff, so can just be returned following processing 
 # If the naming style is inconsistent, ie '1' and 'I', this is shown as 'character(0)' in new.names
 # in 'new.names', 'II' is listed as 'I''I'. collapsing to resolve
 # resolving in a loop, producing a list that is only as long as the previous list of names
@@ -58,4 +59,6 @@ renameGenome <- function(genome, annot)
    names(genome)<- names_collapsed
    return(genome)
 }
+
+
 renameGenome(genome, annot)
