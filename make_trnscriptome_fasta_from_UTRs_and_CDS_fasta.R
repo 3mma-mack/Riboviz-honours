@@ -79,3 +79,99 @@ CreateFastaFullUTRs(three_UTR, CDS, five_UTR)
 
 # export fasta files with 3UTR, CDS and 5UTR sequences.  
 writeXStringSet(fiveutr_CDS_threeutr,filepath = file.path('.','S_pombe_full_UTR.fasta'),format = "fasta")
+
+
+
+# update gff file so ranges match
+
+names(fiveutr_CDS_threeutr) <- paste(names(fiveutr_CDS_threeutr), '.1', sep = '')
+# export fasta files with 3UTR, CDS and 5UTR sequences.  
+CreateFastaFullUTRs(three_UTR, CDS, five_UTR)
+
+writeXStringSet(fiveutr_CDS_threeutr,filepath = file.path('.','S_pombe_full_UTR.fasta'),format = "fasta")
+
+# Make GFF ranges match UTR
+# gff, 5UTR, CDS, 3UTR.
+# make names consistent 
+# for each gene, if type == UTR5, update the range to be 1 to length of 5UTR for that gene
+# if type == CDS, update range to be length of 5UTR +1 to length of 5UTR + CDS 
+# if type == UTR3, update range to be  ength 5UTR+CDS+1 to length of 5UTR+CDS+3UTR
+# return updated gff 
+
+genome <- readDNAStringSet('S_pombe_full_UTR.fasta',format = "fasta")
+annot <- readGFFAsGRanges('Alex_files/Schizosaccharomyces_pombe_CDS_w_250utrs.gff3')
+
+# make the names compatible to allow manipulation
+
+
+
+names(five_UTR) <- paste(names(five_UTR), '.1', sep = '')
+names(CDS) <- paste(names(CDS), '.1', sep = '')
+names(three_UTR) <- paste(names(three_UTR), '.1', sep = '')
+
+# seperate out the UTRs and CDS to allow processing 
+
+gff_fiveutr <- annot[annot$type == 'UTR5']
+gff_cds <- annot[annot$type == 'CDS']
+gff_threeutr <- annot[annot$type == 'UTR3']
+
+# Edit the ranges of the 5UTR gff to be 1-width of listed UTR for each gene, if present
+
+  for(i in gff_fiveutr$Name){
+    if(i %in% names(five_UTR)){
+      ranges(gff_fiveutr[gff_fiveutr$Name == i]) <- IRanges(start = 1, 
+                                                          width = width(five_UTR[names(five_UTR)==i]))
+      }else{
+         start(ranges(gff_fiveutr[gff_fiveutr$Name == i])) <- 0
+         width(ranges(gff_fiveutr[gff_fiveutr$Name == i])) <- 1
+         }
+    }
+
+# repeat for CDS, checking if a 5' UTR is present 
+
+  for(i in gff_cds$Name){
+    if(i %in% names(CDS)){
+      if(i %in% names(five_UTR)){
+        ranges(gff_cds[gff_cds$Name == i]) <- IRanges(start = end(ranges(gff_fiveutr[gff_fiveutr$Name == i])) +1,
+                                                     width = width(CDS[names(CDS)==i]))  
+         }else{
+           ranges(gff_cds[gff_cds$Name == i]) <- IRanges(start = 1, width = width(CDS[names(CDS)==i]))  
+            }
+       }
+    }
+
+  for(i in gff_threeutr$Name){
+    if(i %in% names(three_UTR)){
+      ranges(gff_threeutr[gff_threeutr$Name == i]) <- IRanges(start = end(ranges(gff_cds[gff_cds$Name == i])) +1,
+                                                            width = width(three_UTR[names(three_UTR)==i]))
+       }else{
+          ranges(gff_threeutr[gff_threeutr$Name == i]) <- IRanges(start = end(ranges(gff_cds[gff_cds$Name == i])), 
+                                                            width = 1)
+          }
+    }
+
+# combine GRangfes objects into one to be in the order 5utr - cds - 3utr
+
+c <- 1
+total_gff <- GRanges()
+
+for(i in 1:length(gff_cds)){
+  total_gff[c]<- gff_fiveutr[i]
+  total_gff[(c+1)] <- gff_cds[i]
+  total_gff[(c+2)] <- gff_threeutr[i]
+  c <- c+3
+}
+
+#extra genes are present in annot compared to CDS, all of which are alternative transcripts for other genes. there are 8 in total, so remove
+annot_names <- unique(annot$Name)
+genome_names <- names(genome)
+extra_genes <- annot_names[!(annot_names %in% genome_names)]
+test <- Pasted_gff[-c(which(Pasted_gff$Name %in% c("SPAC17G6.02c.2", "SPBC2D10.10c.3", "SPBC2D10.10c.2", "SPCC162.04c.2",  "SPCC1620.02.2", "SPCC1906.03.2",  "SPCC548.03c.2" , "SPNCRNA.103.2" )))]
+
+# export gff 
+export.gff3(test, con=file.path('.','S_pombe_full_UTR_removed_genes_pasted.gff3'))
+
+# as a quicker way to get final gff, paste together to be all the 5utr, then all CDS sequences, then 3utr
+Pasted_gff <- GRanges(c(gff_fiveutr, gff_cds, gff_threeutr))
+export.gff3(Pasted_gff, con=file.path('.','S_pombe_pasted_full_UTR.gff3'))
+
