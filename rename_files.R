@@ -32,6 +32,8 @@ gff <- "Schizosaccharomyces_pombe_all_chromosomes.gff3.gz"
 
 annot <- readGFFAsGRanges(gff)
 genome <- readDNAStringSet(input,format = "fasta")
+
+# rename for testing with different styles to see if the function works correctly  
 names(genome) <- c("chr_II_telomeric_gap dd","CHR I Spombe"," CHR II Spombe"," CHR III Spombe","zz mating_type_region","s mitochondrial")
 names(genome) <- c("chr_II_telomeric_gap dd","CHR 1 Spombe"," CHR 2 Spombe"," CHR III Spombe","zz mating_type_region","s mitochondrial")
 
