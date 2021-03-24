@@ -77,16 +77,10 @@ CreateFastaFullUTRs <- function(three_UTR, CDS, five_UTR)
 
 CreateFastaFullUTRs(three_UTR, CDS, five_UTR)
 
-# export fasta files with 3UTR, CDS and 5UTR sequences.  
-writeXStringSet(fiveutr_CDS_threeutr,filepath = file.path('.','S_pombe_full_UTR.fasta'),format = "fasta")
-
-
-
-# update gff file so ranges match
+# update names, so match with names used in gff file later.
 
 names(fiveutr_CDS_threeutr) <- paste(names(fiveutr_CDS_threeutr), '.1', sep = '')
 # export fasta files with 3UTR, CDS and 5UTR sequences.  
-CreateFastaFullUTRs(three_UTR, CDS, five_UTR)
 
 writeXStringSet(fiveutr_CDS_threeutr,filepath = file.path('.','S_pombe_full_UTR.fasta'),format = "fasta")
 
