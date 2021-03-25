@@ -25,7 +25,6 @@ i <- 'SPAC1002.02.1'
 
 # Edit the ranges of the 5UTR gff to be 1-width of listed UTR for each gene, if present
 
-c <- 1
 gff_fiveutr_edit <- tibble(seqid = factor(),
                            source = factor(),
                            type = factor(),
@@ -45,8 +44,8 @@ for(i in gff_fiveutr$Name){
       }else{
          new_row <- filter(gff_fiveutr, gff_fiveutr$Name == i) %>%
            mutate(start = 0,end = 0) 
-          gff_fiveutr_edit <- gff_fiveutr_edit %>% bind_rows(new_row)
-           }
+          gff_fiveutr_edit <- gff_fiveutr_edit %>% bind_rows(new_row)       
+    }
   }
 }
 
@@ -90,9 +89,7 @@ gff_threeutr_edit <- tibble(seqid = factor(),
                        Name = character())
 
 for(i in gff_threeutr$Name){
-  if(!(i %in% gff_cds_edit$Name)){
-    
-  }else{
+  if(i %in% names(CDS)){
     if(i %in% names(three_UTR)){
       new_row <- filter(gff_threeutr, gff_threeutr$Name == i) %>%
         mutate(start = (filter(gff_cds_edit, gff_cds_edit$Name == i)$end +1),
@@ -106,9 +103,9 @@ for(i in gff_threeutr$Name){
              end = (filter(gff_cds_edit, gff_cds_edit$Name == i)$end))
         gff_threeutr_edit <- gff_threeutr_edit %>% bind_rows(new_row)
       }
-  
-    }
+   }
 }
+
 
 total_gff <- tibble(seqid = factor(),
                     source = factor(),
@@ -119,13 +116,11 @@ total_gff <- tibble(seqid = factor(),
                     strand = character(),
                     phase = integer(),
                     Name = character())
-c <- 1
 
 for(i in 1:nrow(gff_cds_edit)){
   total_gff<- total_gff %>% rbind(gff_fiveutr_edit[i,])
   total_gff<- total_gff %>% rbind(gff_cds_edit[i,])
   total_gff<- total_gff %>% rbind(gff_threeutr_edit[i,])
-  c <- c+3
 }
 
 export.gff3(total_gff, con=file.path('.','S_pombe_tiddle_full_UTR.gff3'))
