@@ -141,6 +141,7 @@ genes_of_interest <- All_samples_one_df %>% filter(All_samples_one_df$Gene %in% 
 # the higher the position on the boxplot, the larger the 5UTR portion of the ration, thus the more reads in the 5UTR
 # If the number of reads in the 5UTR increases between conditions, then use of 5UTR (and degredation) increases compared to that in the CDS
 # if 5UTR use compared to CDS increases between conditions then the point for that gene will be higher on the graph. 
+# boxplot seems to automatically remove any values where one of the values is 0, but may need to do this earlier. 
 ggplot(All_samples_one_df, aes(x = Treatment, y = ratio))+
   geom_boxplot()+
   scale_y_log10()+
