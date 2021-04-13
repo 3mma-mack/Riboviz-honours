@@ -150,3 +150,26 @@ ggplot(All_samples_one_df, aes(x = Treatment, y = ratio))+
   labs(title = 'difference in 5UTR to CDS reads per base ratio between treatments',
        y = '5UTR_reads_per_base/CDS_reads_per_base')
        
+
+
+# make a jitter plot of ratio change 
+ratio_change <- tibble(Gene = gene_reads_5UTR_CDS.wt.AT.ribo.4_s.h5$Gene,
+                       no_AT_Ratio = gene_reads_5UTR_CDS.wt.noAT.ribo.4_s.h5$ratio,
+                       AT_Ratio = gene_reads_5UTR_CDS.wt.AT.ribo.4_s.h5$ratio)
+
+highlighted_genes <- ratio_change %>% filter(ratio_change$Gene %in% c('SPCC1393.08.1'))
+# plot the ratio of 5UTR/CDS reads per base in AT v 5UTR/CDS reads per base in no AT 
+# AT presence == starvation 
+# x = y line. any points on this line are unchanged
+# above x = y line, with.At 5UTR/CDS Ratio is greater than no.AT 5UTR/CDS Ratio, increased relative 5UTR use when starved
+# below x = y line, with.At 5UTR/CDS Ratio is less than no.AT 5UTR/CDS Ratio, decreased relative 5UTR use when starved 
+ggplot(ratio_change,aes(x = no_AT_Ratio, y = AT_Ratio))+
+  geom_jitter(color = 'red')+
+  geom_point(data=highlighted_genes, colour="green") +
+  geom_text(data=highlighted_genes, label= highlighted_genes$Gene, vjust=1.5, size = 2.5)+
+  geom_abline(slope = 1, intercept = 0)+
+  scale_y_log10()+
+  scale_x_log10()+
+  labs(title = 'Change in 5UTR to CDS reads per base ratio',
+       x = '5UTR_reads_per_base/CDS_reads_per_base - no.AT',
+       y = '5UTR_reads_per_base/CDS_reads_per_base - with.AT')
