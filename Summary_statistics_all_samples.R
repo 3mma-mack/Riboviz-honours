@@ -16,14 +16,13 @@ suppressMessages(library(here))
 
 # take all the reads before start codon and add them together
 # take all the reads in the CDS and add them together 
-# take all the reads after the stop codon and add them together 
-# Compare. set CDS to 1 
+# Compare. set CDS to 1 by dividing by CDS
 
 
-# make a loop to do that for all the reads before start codons in the h5, in CDS, after start codon
+# make a loop to do that for all the reads before start codons in the h5, or in CDS
 
 # input: gff or fasta for names, h5 file
-# create a dataframe with 3 columns; gene names, ratio of CDS to 5'UTR in control, ratio of CDS to 5'UTR reads in treatment
+# create a dataframe with 6 columns; gene names, number of reads 5UTR per base, number of reads CDS per base, ratio of 5UTR to CDS in control, Treatment, Sample
 # to do that need: for each condition dataframe of gene, reads CDS, read 5'UTR 
 # make that; for i in genenames, get all of the reads up to position buffer left, add to dataframe
 # get all reads in CDS, add to dataframe 
@@ -57,8 +56,9 @@ TidyDatamatrix <- function(data_mat, startpos = 1, startlen = 1) {
 # get inputs, gene names, and paths to h5 files 
 gff_in <- 'wt.AT.ribo.4_s/S_pombe_full_UTR_or_50nt_buffer.gff3'
 GFF <- readGFFAsDf(gff_in)
+# get the name of genes 
 genes <- levels(GFF$seqnames)
-# file is a list of paths to h5 files
+# file is a list of paths to h5 files, files needed to be read
 file <- c('wt.AT.ribo.4_s/wt.AT.ribo.4_s.h5',
           'wt.AT.ribo.3_s/8c5f643d83fe7ce08246d386e8303f/wt.AT.ribo.3_s.h5',
           'wt.AT.CHX.ribo.11_s/wt.AT.CHX.ribo.11_s.h5',
@@ -74,6 +74,8 @@ file <- c('wt.AT.ribo.4_s/wt.AT.ribo.4_s.h5',
 dataset <- 'D-Sp_2018'
 
 
+# create a tibble for each sample, marked with sample name, and get total reads per base 5UTR and CDS
+# reads per base is used to allow comparison no matter the length of the 5UTR or CDS 
 
 for(j in file){
   #for each h5 file listed, make an  
@@ -107,6 +109,7 @@ for(j in file){
    # save the condition_df into an object with the condition name 
    # create a column 'ratio' by dividing the 5UTR counts per base by CDS counts per base
    # create new column 'Treatment' by exracting the treatment
+  # create column Sample to get the sample origin of the data 
    condition_df <- condition_df %>% mutate(ratio = fiveUTR_reads_per_base/CDS_reads_per_base,
             Treatment = paste(unlist(strsplit(basename(j), split = "[.]"))[2:3], collapse = '.'),
             Sample = basename(j),
@@ -116,6 +119,7 @@ for(j in file){
 }
 
 # combine all of the dataframes into one, so I can make a box plot 
+# needs to be automated
 All_samples_one_df <- rbind(gene_reads_5UTR_CDS.wt.AT.CHX.ribo.11_s.h5,
                             gene_reads_5UTR_CDS.wt.AT.CHX.ribo.13_s.h5,
                             gene_reads_5UTR_CDS.wt.AT.noCHX.ribo.11_s.h5,
@@ -132,8 +136,7 @@ All_samples_one_df <- rbind(gene_reads_5UTR_CDS.wt.AT.CHX.ribo.11_s.h5,
 # get gene of interest information, so can highlight Fil1, or any other 
 genes_of_interest <- All_samples_one_df %>% filter(All_samples_one_df$Gene %in% c('SPCC1393.08.1',))
 
-# create box plots comparing overall ratios of no AT and AT treated sample
- 
+# create box plots comparing overall ratios of no AT and AT treated sample 
 # create a box plot 
 # the higher the position on the boxplot, the larger the 5UTR portion of the ration, thus the more reads in the 5UTR
 # If the number of reads in the 5UTR increases between conditions, then use of 5UTR (and degredation) increases compared to that in the CDS
