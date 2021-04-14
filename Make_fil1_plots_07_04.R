@@ -34,22 +34,23 @@ TidyDatamatrix <- function(data_mat, startpos = 1, startlen = 1) {
 
 ## Actual code
 # path to H5 file
-file_url <- "wt.noAT.ribo.4_s.h5"
-Gene_of_interest <- 'SPCC1393.08.1'
+file_url <- "wt.noAT.ribo.4_s/4c7158e339494e80dadcfd1a859f62/wt.noAT.ribo.4_s.h5"
+Gene_of_interest <- 'SPCC188.09c.1'
 Dataset <- 'D-Sp_2018'
 
 # Create the gene data matrix 
-Fil1_data_matrix <- GetGeneDatamatrix(gene= Gene_of_interest,
+gene_data_matrix <- GetGeneDatamatrix(gene= Gene_of_interest,
                                       dataset = Dataset,
                                       hd_file = file_url)
 
 # extract the buffer so can identify stop codon later
-buffer_left <- h5readAttributes(file_url, '/SPCC1393.08.1/D-Sp_2018/reads')[['buffer_left']]
-nnt_buffer <- Fil1_buffer_left
+buffer_left <- h5readAttributes(file_url, base::paste('/',Gene_of_interest,'/D-Sp_2018/reads', sep = ''))[['buffer_left']]
+buffer_right <- h5readAttributes(file_url, base::paste('/',Gene_of_interest,'/D-Sp_2018/reads', sep = ''))[['buffer_right']]
+nnt_buffer <- buffer_left
 
 # Create a Tidy data matrix, using the the gene data matrix. set start as -nnt_buffer + 1
 # so the actual start codon lies on 1
-Fil1_tidy_matrix <- TidyDatamatrix(data_mat = Fil1_data_matrix, startpos = -nnt_buffer +1 )
+gene_of_interest_tidy_matrix <- TidyDatamatrix(data_mat = gene_data_matrix, startpos = -nnt_buffer +1 )
 
 
 # make tidy data matrix, with all the counts of different read lengths at different positions
@@ -62,18 +63,18 @@ Fil1_tidy_matrix <- TidyDatamatrix(data_mat = Fil1_data_matrix, startpos = -nnt_
 # output: TidyDataMatrix
 
 # create an empty tibble with two columns; Pos and Counts.
-Fil1_gene_Total_reads_at_position <- tibble(Pos =integer(),
+gene_Total_reads_at_position <- tibble(Pos =integer(),
                                             Counts = integer())
 
 # Loop through tidy data matrix, and for each position add up all of the counts for different 
 # read lengths, storing them in the new tidy data matrix
-for(i in Fil1_tidy_matrix[1,]$Pos:max(Fil1_tidy_matrix$Pos)){
-  tmp_row <- Fil1_tidy_matrix %>% filter(Fil1_tidy_matrix$Pos ==i)
+for(i in gene_of_interest_tidy_matrix[1,]$Pos:max(gene_of_interest_tidy_matrix$Pos)){
+  tmp_row <- gene_of_interest_tidy_matrix %>% filter(gene_of_interest_tidy_matrix$Pos ==i)
   new_row <- tibble(Pos = i, Counts = sum(tmp_row$Counts))
-  Fil1_gene_Total_reads_at_position <- Fil1_gene_Total_reads_at_position %>% bind_rows(new_row)
+  gene_Total_reads_at_position <- gene_Total_reads_at_position %>% bind_rows(new_row)
 }
 
 # plot the data, so positions are along the x axis and number of counts is along the y axis
-ggplot(Fil1_gene_Total_reads_at_position,aes(x = Pos, y = Counts))+
+ggplot(gene_Total_reads_at_position,aes(x = Pos, y = Counts))+
   geom_col( width = 1, color = 'red')+
-  labs(title = 'wt.noAT.ribo.4_s - Fil1', x = 'Position relative to start codon', y = 'Number of reads')
+  labs(title = paste(file_url, ' - ', Gene_of_interest), x = 'Position relative to start codon', y = 'Number of reads')
