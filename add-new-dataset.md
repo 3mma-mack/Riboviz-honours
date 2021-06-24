@@ -33,7 +33,7 @@ Components:
 - [ ] Using the gathered information, create a config.yaml file***.
 - [ ] Prepare to run the data through riboviz****. 
 
-* *Whether or not UMIs and/or barcodes are present can be hard to pinpoint. If in doubt set the UMIs configuration as FALSE, if this is incorrect this will be reflected in irregular output files*. 
+*  *Whether or not UMIs and/or barcodes are present can be hard to pinpoint. If in doubt set the UMIs configuration as FALSE, if this is incorrect this will be reflected in irregular output files*. 
 
 ** *The dataset can contain ribosome profiling samples and RNA-seq samples, make sure the ones you select are relevant*. 
 
