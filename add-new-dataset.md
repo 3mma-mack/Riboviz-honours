@@ -11,7 +11,13 @@
 
 # Adding a dataset for a new species
 
-filler text 
+Contents 
+
+- [ ] Identify the new species you want to study
+- [ ] Create contaminats folder 
+- [ ] Download or create contaminants fasta file
+- [ ] Create annotation folder
+- [ ] Download or create annotation fasta and gff
 
 
 <a name="existingspecies"/>
