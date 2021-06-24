@@ -34,9 +34,16 @@ Each genus has it's own folder within the relevant Kingdom folder, as outlined i
 
 **Download contaminants fasta file**
 
-The contaminants file is a fasta file containing the sequences of the rRNA for the organism being studied. rRNA is protected by the ribosome during the digestion step of ribosome profiling, so will be present in the data.  
+The contaminants file is a fasta file containing the sequences of the rRNA for the organism being studied. rRNA is protected by the ribosome during the digestion step of ribosome profiling, so will be present in the data. These can typically be found and downloaded from a genome database in the .fasta format.
 
 **Download or create annotation fasta and gff files**
+
+Riboviz runs using transcriptome style annotation files rather than genome style annotation files, as this reduces problems later on in the data analysis that would be cause by splicing. If transcriptome fasta and gff files are available to download then great! If not, then these can be created from genome style fasta and gff files using the Rscript 'create_files_for_riboviz.R' available [here](https://github.com/riboviz/riboviz/blob/create_riboviz_style_cds_gff_acope3-278/rscripts/create_files_for_riboviz.R). This code may need to be adapted to fit different research questions and is still in development, but is definitely a good starting point. 
+
+Key qualities of transcriptome style fasta and gff files produced by create_ files for riboviz.R:
+- All sequences are +ve stranded 
+- All coding sequences are flanked by a consistent buffer region
+- Each transcript is listed seperately in the fasta file, rather than being the full sequences of chromosomes
 
 **Check annotation files**
 
