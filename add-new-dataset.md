@@ -40,10 +40,33 @@ The contaminants file is a fasta file containing the sequences of the rRNA for t
 
 Riboviz runs using transcriptome style annotation files rather than genome style annotation files, as this reduces problems later on in the data analysis that would be cause by splicing. If transcriptome fasta and gff files are available to download then great! If not, then these can be created from genome style fasta and gff files using the Rscript 'create_files_for_riboviz.R' available [here](https://github.com/riboviz/riboviz/blob/create_riboviz_style_cds_gff_acope3-278/rscripts/create_files_for_riboviz.R). This code may need to be adapted to fit different research questions and is still in development, but is definitely a good starting point. 
 
+this can be run using the command:
+
+`Rscript --vanilla rscripts/create_files_for_riboviz.R `
+
+and by adding arguments to specify the input fasta and gff, output files, the method of seperating sequences (ie by the gene name or sequence ID) etc.
+```
+"-i","--input",help="Input DNA sequences. Should contain genome (i.e. sequence of each chromosome) or transcripts. Should be file path",type="character"
+"-g","--gff",help="GFF3 file corresponding to input DNA sequences.",type="character"
+"--out_dir",help="Output directory for Riboviz-style CDS and GFF files. Will be created if does not exist.",type="character",default="./"
+"--out_cds",help="Name of Riboviz-style CDS file",type="character",default="riboviz_cds.fasta"
+"--out_gff",help="Name of Riboviz-style GFF3 file",type="character",default="riboviz_gff.gff3"
+"-s","--seq_id",help="GFF column to use as the sequence ids",type="character",default="Name"
+"-b","--buffer",help="Buffer to use for UTRs",type="integer",default=250
+"--h5_file",help="File name for createing H5 file. If not initialized, file will not be created.",type="character",default=NULL
+"--codon_data_file",help="File name for codon position .Rdata file. If not initialized, file will not be created.",type="character",default=NULL
+"--num_cores",help="Number of cores to use for parallelizable processes.",type="integer",default=1
+"--codons_exclude",help="Exclude the first n codons when creating codon_data_file, where n is specified by this argument",default=0
+"--remove_trailing",help="Remove trailing info from names to be used for CDS, e.g. remove anything after '_' or '.'",type="character",default="_|\\."
+"--filter_seq",help="A comma-separated list of filtering criteria to apply to the GFF3 file, e.g. 'type:CDS,orf_classification:Verified,orf_classification:Uncharacterized'. Use 'notNA' to filter values that are NA, e.g. 'orf_classification:!NA'.",type="character",default="type:CDS"
+"--exons_preordered",help="Some GFF3 files have exons pre-ordered such that exon with start codon is listed first. Effects how multi-exon genes will be combined.",action="store_true"
+
+```
+
 Key qualities of transcriptome style fasta and gff files produced by create_ files for riboviz.R:
 - All sequences are +ve stranded 
 - All coding sequences are flanked by a consistent buffer region
-- Each transcript is listed seperately in the fasta file, rather than being the full sequences of chromosomes
+- Each transcript sequence is listed seperately in the fasta file, rather than being the full sequences of chromosomes
 
 **Check annotation files**
 
