@@ -2,34 +2,37 @@
 
 # Table of contents
 
-* [Adding a dataset for a new species](#newspecies)
+* [Setting up a new species](#newspecies)
 * [Adding a dataset for an existing species](#existingspecies)
 
 
 <a name="newspecies"/>
 
 
-# Adding a dataset for a new species
+# Setting up a new species
 
-**For species where annotations are not already available on riboviz**
+**For genus where annotations are not already available on riboviz**
 
-Contents:
+Some species already having annotations set up in example-datasets, meaning it is quicker and easier to add new datasets for them. The species already present in example-datasets include; *Escherichia*, *Candida*, *Cryptococcus*, *Saccharomyces* and many more. If the species you want to study is not already on example-datasets then it will take more time to set up, but the key steps are outlines below. 
+
+**Contents:**
 
 - [ ] Identify the new species you want to study.
-- [ ] Create contaminats folder.
+- [ ] Create a genus folder in example-datasets.
 - [ ] Download contaminants fasta file.
-- [ ] Create annotation folder.
 - [ ] Download or create annotation fasta and gff files.
 - [ ] Check annotation files
 - [ ] Add your first dataset.
 
 **Identify the new species you want to study**
 
-**Create the contaminants folder**
+First step is to pick a species to study. https://www.ncbi.nlm.nih.gov/genome/ contains the genomes of over 60,000 organsims and can provide links to external resources focussing of individual species, for example; Saccharomyces has the https://www.yeastgenome.org/ and schizosaccharomyces pombe has https://www.pombase.org/ listed as externaml resources. 
+
+**Create a genus folder in example-datasets**
+
+Each genus has it's own folder within the relevant Kingdom folder, as outlined in the example-datasets [README file](https://github.com/riboviz/example-datasets#repository-structure-is-loosely-phylogenetic). The genus folder will eventually hold the config.yamls for each dataset. Within the genus folder, an annotation and a contaminants folder need to be created. These will hold the transcriptome gff and fasta, and the contaminant fasta respectively, along with the relevant provinance files.  
 
 **Download contaminants fasta file**
-
-**Create annotation folder**
 
 **Download or create annotation fasta and gff files**
 
