@@ -30,9 +30,16 @@ Components:
 - [ ] List the UMIs and/or barcodes and link/describe where you found them. Default is FALSE.
 - [ ] Identify the ribosome profiling samples from the dataset (some may be RNA-seq)**
 - [ ] List the samples and their accession numbers and link to the relevant genome database (e.g. Sequence Read Archive (SRA) or GEO)
+- [ ] Using the gathered information, create a config.yaml file***.
+- [ ] Prepare to run the data through riboviz****. 
 
-*Whether or not UMIs and/or barcodes are present can be hard to pinpoint. If in doubt set the UMIs configuration as FALSE, if this is incorrect this will be reflected in irregular output files. 
-** The dataset can contain ribosome profiling samples and RNA-seq samples, make sure the ones you select are relevant. 
+* *Whether or not UMIs and/or barcodes are present can be hard to pinpoint. If in doubt set the UMIs configuration as FALSE, if this is incorrect this will be reflected in irregular output files*. 
+
+** *The dataset can contain ribosome profiling samples and RNA-seq samples, make sure the ones you select are relevant*. 
+
+*** *It is recommended to use an existing config.yaml file as a guide. Helpful information on parameters and their defaults can be found [here.](https://github.com/riboviz/riboviz/blob/main/docs/user/prep-riboviz-config.md)* 
+
+**** *This includes setting up an input directory to hold the sample data in. Details of how to do this can be found [here.](https://github.com/riboviz/riboviz/blob/main/docs/user/run-on-eddie.md#run-a-full-size-example-dataset)*
 
 Testing:
 
