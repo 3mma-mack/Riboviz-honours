@@ -11,13 +11,31 @@
 
 # Adding a dataset for a new species
 
-Contents 
+**For species where annotations are not already available on riboviz**
 
-- [ ] Identify the new species you want to study
-- [ ] Create contaminats folder 
-- [ ] Download or create contaminants fasta file
-- [ ] Create annotation folder
-- [ ] Download or create annotation fasta and gff
+Contents:
+
+- [ ] Identify the new species you want to study.
+- [ ] Create contaminats folder.
+- [ ] Download contaminants fasta file.
+- [ ] Create annotation folder.
+- [ ] Download or create annotation fasta and gff files.
+- [ ] Check annotation files
+- [ ] Add your first dataset.
+
+**Identify the new species you want to study**
+
+**Create the contaminants folder**
+
+**Download contaminants fasta file**
+
+**Create annotation folder**
+
+**Download or create annotation fasta and gff files**
+
+**Check annotation files**
+
+**Add your first dataset**
 
 
 <a name="existingspecies"/>
