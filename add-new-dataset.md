@@ -34,6 +34,8 @@ Each genus has it's own folder within the relevant Kingdom folder, as outlined i
 
 **Download contaminants fasta file**
 
+The contaminants file is a fasta file containing the sequences of the rRNA for the organism being studied. rRNA is protected by the ribosome during the digestion step of ribosome profiling, so will be present in the data.  
+
 **Download or create annotation fasta and gff files**
 
 **Check annotation files**
