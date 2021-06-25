@@ -30,11 +30,15 @@ First step is to pick a species to study. https://www.ncbi.nlm.nih.gov/genome/ c
 
 **Create a genus folder in example-datasets**
 
+Create a new branch in example datasets to work in.
+
 Each genus has it's own folder within the relevant Kingdom folder, as outlined in the example-datasets [README file](https://github.com/riboviz/example-datasets#repository-structure-is-loosely-phylogenetic). The genus folder will eventually hold the config.yamls for each dataset. Within the genus folder, an annotation and a contaminants folder need to be created. These will hold the transcriptome gff and fasta, and the contaminant fasta respectively, along with the relevant provinance files.  
 
 **Download contaminants fasta file**
 
 The contaminants file is a fasta file containing the sequences of the rRNA for the organism being studied. rRNA is protected by the ribosome during the digestion step of ribosome profiling, so will be present in the data. These can typically be found and downloaded from a genome database in the .fasta format.
+
+This can then be added to the contaminants folder, along with a provenance.txt file describing the origins and how it was created. 
 
 **Download or create annotation fasta and gff files**
 
@@ -62,13 +66,18 @@ and by adding arguments to specify the input fasta and gff, output files, the me
 "--exons_preordered",help="Some GFF3 files have exons pre-ordered such that exon with start codon is listed first. Effects how multi-exon genes will be combined.",action="store_true"
 
 ```
+These parameters allow the code to be adapted depending on the format of the GFF and fasta files, which may vary based on how they were created.
 
 Key qualities of transcriptome style fasta and gff files produced by create_ files for riboviz.R:
 - All sequences are +ve stranded 
 - All coding sequences are flanked by a consistent buffer region
 - Each transcript sequence is listed seperately in the fasta file, rather than being the full sequences of chromosomes
 
+Once created, these annotation files can be uploaded to the annotation folder. 
+
 **Check annotation files**
+
+
 
 **Add your first dataset**
 
