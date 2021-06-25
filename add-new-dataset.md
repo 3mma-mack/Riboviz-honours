@@ -50,7 +50,7 @@ This can then be added to the contaminants folder, along with a provenance.txt f
 
 Riboviz runs using transcriptome style annotation files rather than genome style annotation files, as this reduces problems later on in the data analysis that would be cause by splicing. If transcriptome fasta and gff files are available to download then great! If not, then these can be created from genome style fasta and gff files using the Rscript 'create_files_for_riboviz.R' available [here](https://github.com/riboviz/riboviz/blob/create_riboviz_style_cds_gff_acope3-278/rscripts/create_files_for_riboviz.R). This code may need to be adapted to fit different research questions and is still in development, but is definitely a good starting point. 
 
-this can be run using the command:
+This can be run using the command:
 
 `Rscript --vanilla rscripts/create_files_for_riboviz.R `
 
@@ -78,15 +78,26 @@ Key qualities of transcriptome style fasta and gff files produced by create_ fil
 - All sequences are +ve stranded 
 - All coding sequences are flanked by a consistent buffer region
 - Each transcript sequence is listed seperately in the fasta file, rather than being the full sequences of chromosomes
+- For each transcript, the GFF will contain 3 features; the upstream buffer, the CDS and the downstream buffer.
 
 Once created, these annotation files can be uploaded to the annotation folder. 
 
+- If available, download transcriptome gff and fasta files for the species of interest and add to annnotation folder.
+- If unavailable, download genome gff and fasta files and run through create_files_for_riboviz.R
+- Add new files to annotation folder
+
 **Check annotation files**
 
-Files can be checked using the riboviz tool check_fasta_gff. 
+The GFF file acts as a guide, and tells the pipeline where to find the start and stop codons for each transcript. However it is important that these locations do actually match the location of the start and stop codon in the provided fasta file. Files can be checked using the riboviz tool check_fasta_gff, which looks for start and stop codons in the fasta file using the positions provided by the GFF and provides details on the number of missing and unexpected features. Details about how to use check_fasta_gff can be found [here](https://github.com/riboviz/riboviz/blob/main/docs/user/check-fasta-gff.md). It is likely that there will be a few issues present due to alternative start and stop codons, and the presence of psuedogenes if not removed.
 
-**Add your first dataset**
+If there are issues present, then using a genome viewer such as SnapGene can help highlight the cause.
 
+If the gff and fasta files show few issues, the files are ready to test with a dataset, which you can add following the instructions below. Adding a provenance.txt file here describing how the files were made and the sources of the data is advisable. 
+
+- Run GFF and fasta files through check_fasta_gff.
+- Check outputs for unexpected issues.
+- Investigate issues if present. 
+- Add provenance.txt file.
 
 <a name="existingspecies"/>
 
