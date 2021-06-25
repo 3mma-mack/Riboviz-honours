@@ -26,7 +26,7 @@ Some species already having annotations set up in example-datasets, meaning it i
 
 **Identify the new species you want to study**
 
-First step is to pick a species to study. https://www.ncbi.nlm.nih.gov/genome/ contains the genomes of over 60,000 organsims and can provide links to external resources focussing of individual species, for example; Saccharomyces has the https://www.yeastgenome.org/ and schizosaccharomyces pombe has https://www.pombase.org/ listed as externaml resources. 
+First step is to pick a species to study. https://www.ncbi.nlm.nih.gov/genome/ contains the genomes of over 60,000 organsims and can provide links to external resources focussing of individual species, for example; *Saccharomyces* has the https://www.yeastgenome.org/ and *Schizosaccharomyces pombe* has https://www.pombase.org/ listed as externaml resources. 
 
 **Create a genus folder in example-datasets**
 
