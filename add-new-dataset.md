@@ -26,19 +26,25 @@ Some species already having annotations set up in example-datasets, meaning it i
 
 **Identify the new species you want to study**
 
-First step is to pick a species to study. https://www.ncbi.nlm.nih.gov/genome/ contains the genomes of over 60,000 organsims and can provide links to external resources focussing of individual species, for example; Saccharomyces has the https://www.yeastgenome.org/ and schizosaccharomyces pombe has https://www.pombase.org/ listed as externaml resources. 
+First step is to pick a species to study. https://www.ncbi.nlm.nih.gov/genome/ contains the genomes of over 60,000 organsims and can provide links to external resources focussing of individual species, for example; Saccharomyces has the https://www.yeastgenome.org/ and schizosaccharomyces pombe has https://www.pombase.org/ listed as externaml resources.  
 
 **Create a genus folder in example-datasets**
 
-Create a new branch in example datasets to work in.
-
 Each genus has it's own folder within the relevant Kingdom folder, as outlined in the example-datasets [README file](https://github.com/riboviz/example-datasets#repository-structure-is-loosely-phylogenetic). The genus folder will eventually hold the config.yamls for each dataset. Within the genus folder, an annotation and a contaminants folder need to be created. These will hold the transcriptome gff and fasta, and the contaminant fasta respectively, along with the relevant provinance files.  
+
+- Create a new branch in example datasets to work in.
+- Within the branch, create a folder for your genus.
+- Inside the genus folder, create an annotation and a contaminants folder. 
 
 **Download contaminants fasta file**
 
 The contaminants file is a fasta file containing the sequences of the rRNA for the organism being studied. rRNA is protected by the ribosome during the digestion step of ribosome profiling, so will be present in the data. These can typically be found and downloaded from a genome database in the .fasta format.
 
 This can then be added to the contaminants folder, along with a provenance.txt file describing the origins and how it was created. 
+
+- Find and download the rRNA sequences for your organisim in the .fasta format
+- Add the rRNA.fasta file to the contaminants file 
+- Add a provenance.txt file
 
 **Download or create annotation fasta and gff files**
 
@@ -77,7 +83,7 @@ Once created, these annotation files can be uploaded to the annotation folder.
 
 **Check annotation files**
 
-
+Files can be checked using the riboviz tool check_fasta_gff. 
 
 **Add your first dataset**
 
