@@ -22,3 +22,5 @@ When adding a new example dataset providing links and listing adapters will make
 - [ ] Look at results - check for 3nt periodicity in coding regions, most common read lengths being 28-32 nt, and clear start and stop profiles
 - [ ] Troubleshoot if necessary 
 - [ ] Update genus-level README.md and provenance section of config file
+
+More details on adding a new dataset can be found [here](https://github.com/riboviz/example-datasets/blob/add-new-dataset-documentation-72/add-new-dataset.md#adding-a-dataset-for-an-existing-species)
