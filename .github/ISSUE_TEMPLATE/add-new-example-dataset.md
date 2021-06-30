@@ -16,5 +16,9 @@ When adding a new example dataset providing links and listing adapters will make
 - [ ] Using information gathered, create config file
 - [ ] Download sample data 
 - [ ] Set up riboviz (following [documentation](https://github.com/riboviz/riboviz/blob/main/docs/user/run-on-eddie.md))
-- [ ] Test run
-- [ ] Look at results/troubleshoot
+- [ ] (optional) Create downsampled data and fast test run on that
+- [ ] Test run of full sized dataset
+- [ ] Look at results - check for 3nt periodicity in coding regions, most common read lengths being 28-32 nt, and clear start and stop profiles
+- [ ] Troubleshoot if necessary 
+- [ ] Update genus-level README.md and provenance section of config file  
+ 
