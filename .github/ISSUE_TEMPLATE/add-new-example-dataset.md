@@ -13,7 +13,7 @@ When adding a new example dataset providing links and listing adapters will make
 - [ ] Identify the ribosome profiling samples from the dataset (some may be RNA-seq) - link database
 - [ ] Identify adapter sequence - provide sequence
 - [ ] Confirm or deny presence of UMIs and barcodes if used - describe if present
-- [ ] Using information gathered, create config file
+- [ ] Using information gathered, create config file. Information on parameters can be found [here](https://github.com/riboviz/riboviz/blob/main/docs/user/prep-riboviz-config.md#configuration-parameters) 
 - [ ] Download sample data 
 - [ ] Set up riboviz (following [documentation](https://github.com/riboviz/riboviz/blob/main/docs/user/run-on-eddie.md))
 - [ ] (optional) Create downsampled data and fast test run on that
