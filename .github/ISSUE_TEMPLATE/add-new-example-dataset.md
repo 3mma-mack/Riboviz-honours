@@ -20,5 +20,4 @@ When adding a new example dataset providing links and listing adapters will make
 - [ ] Test run of full sized dataset
 - [ ] Look at results - check for 3nt periodicity in coding regions, most common read lengths being 28-32 nt, and clear start and stop profiles
 - [ ] Troubleshoot if necessary 
-- [ ] Update genus-level README.md and provenance section of config file  
- 
+- [ ] Update genus-level README.md and provenance section of config file
