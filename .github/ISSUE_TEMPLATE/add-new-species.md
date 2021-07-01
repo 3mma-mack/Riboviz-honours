@@ -18,3 +18,5 @@ assignees: ''
 - [ ] Add annotation files to Annotation folder
 - [ ] Create a provenance.txt file.
 - [ ] Add your first dataset.
+
+More information on setting up a new example species can be found [here](https://github.com/riboviz/example-datasets/blob/add-new-dataset-documentation-72/add-new-dataset.md)
